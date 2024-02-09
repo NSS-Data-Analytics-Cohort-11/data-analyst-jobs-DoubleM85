@@ -100,18 +100,18 @@ FROM data_analyst_jobs;
 --881 total job titles
 SELECT COUNT(DISTINCT title)
 FROM data_analyst_jobs
-WHERE title LIKE '%Analytics%';
+WHERE title ILIKE '%Analyst%';
 
---Answer: 754 job title containing the word 'Analyst'
+--Answer: 754 job title containing the word 'Analyst', 774 disregarding capitalization
 
 -- 12. How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
 
 SELECT COUNT(DISTINCT title)
 FROM data_analyst_jobs
-WHERE title NOT LIKE '%Analyst%'
-AND title NOT LIKE '%Analytics%';
+WHERE title NOT ILIKE '%Analyst%'
+AND title NOT ILIKE '%Analytics%';
 
---Answer: 26
+--Answer: 26, 4 disregarding capitalization
 
 -- **BONUS:**
 -- You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks. 
