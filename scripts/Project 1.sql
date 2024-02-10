@@ -51,7 +51,7 @@ WHERE review_count BETWEEN 500 AND 1000;
 SELECT location AS state, avg(star_rating) AS avg_rating
 FROM data_analyst_jobs
 GROUP BY location
-ORDER BY avg(star_rating) DESC;
+ORDER BY avg_rating DESC;
 
 --Answer: Nebraska @ 4.199
 
@@ -75,13 +75,14 @@ WHERE location = 'CA';
 SELECT company, avg(star_rating) AS avg_rating
 FROM data_analyst_jobs
 WHERE review_count > 5000
+AND company IS NOT NULL
 GROUP BY company;
 
-SELECT COUNT(*)
+SELECT COUNT(DISTINCT company)
 FROM data_analyst_jobs
 WHERE review_count > 5000;
 
---Answer: 185
+--Answer: 40
 
 -- 10. Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
 
@@ -119,16 +120,16 @@ AND title NOT ILIKE '%Analytics%';
 --  - Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
 --   - Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
 
-SELECT domain, COUNT(DISTINCT title) AS hard_to_fill
+SELECT domain, COUNT(title) AS hard_to_fill
 FROM data_analyst_jobs
-WHERE skill = 'SQL'
+WHERE skill ILIKE '%SQL%'
 AND days_since_posting > 21
 AND domain IS NOT NULL
 GROUP BY domain
 ORDER BY hard_to_fill DESC;
 
 --Answer:
--- 1. Consulting and Business Services - 4 jobs
--- 2. Consumer Goods and Services - 2 jobs
--- 3. Computers and Electronics - 1 job
--- 4. Internet and Software - 1 job
+-- "Internet and Software"	62
+-- "Banks and Financial Services"	61
+-- "Consulting and Business Services"	57
+-- "Health Care"	52
